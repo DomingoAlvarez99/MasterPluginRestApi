@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MasterServerRestApiApplication {
+public class MasterServerRestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MasterServerRestApiApplication.class, args);
+		SpringApplication.run(MasterServerRestApplication.class, args);
 	}
 
 }

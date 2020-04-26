@@ -1,0 +1,235 @@
+package org.masterserver.model;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="\"player\"")
+public class PlayerModel {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private long id;
+	
+	@Column(name = "uuid", length = 50)
+	private String uuid;
+	
+	@Column(name = "name", length = 50)
+	private String name;
+	
+	@Column(name = "prefix", length = 50)
+	private String prefix;
+	
+	@Column(name = "name_color", length = 50)
+	private String nameColor;
+	
+	@Column(name = "name_format", length = 50)
+	private String nameFormat;
+	
+	@Column(name = "prefix_color", length = 50)
+	private String prefixColor;
+	
+	@Column(name = "prefix_format", length = 50)
+	private String prefixFormat;
+	
+	@Column(name = "first_login", length = 50)
+	private String firstLogin;
+	
+	@Column(name = "last_login", length = 50)
+	private String lastLogin;
+	
+	@Column(name = "time_played", length = 50)
+	private String timePlayed;
+	
+	@Column(name = "ip", length = 50)
+	private String ip;
+	
+	@OneToMany(mappedBy="assasin",fetch = FetchType.LAZY)
+    private Set<DeathModel> assasins = new HashSet<>();
+	
+	@OneToMany(mappedBy="murdered",fetch = FetchType.LAZY)
+    private Set<DeathModel> murdereds = new HashSet<>();
+	
+	@OneToMany(mappedBy="player",fetch = FetchType.LAZY)
+    private Set<CommandModel> commands = new HashSet<>();
+	
+	@OneToMany(mappedBy="player",fetch = FetchType.LAZY)
+    private Set<PunishmentModel> punishments = new HashSet<>();
+	
+	@OneToMany(mappedBy="player",fetch = FetchType.LAZY)
+    private Set<WarpModel> warps = new HashSet<>();
+
+	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
+			String prefixColor, String prefixFormat, String firstLogin, String lastLogin, String timePlayed, String ip,
+			Set<DeathModel> assasins, Set<DeathModel> murdereds, Set<CommandModel> commands,
+			Set<PunishmentModel> punishments, Set<WarpModel> warps) {
+		this.id = id;
+		this.uuid = uuid;
+		this.name = name;
+		this.prefix = prefix;
+		this.nameColor = nameColor;
+		this.nameFormat = nameFormat;
+		this.prefixColor = prefixColor;
+		this.prefixFormat = prefixFormat;
+		this.firstLogin = firstLogin;
+		this.lastLogin = lastLogin;
+		this.timePlayed = timePlayed;
+		this.ip = ip;
+		this.assasins = assasins;
+		this.murdereds = murdereds;
+		this.commands = commands;
+		this.punishments = punishments;
+		this.warps = warps;
+	}
+
+	public PlayerModel(long id) {
+		this.id = id;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public String getNameColor() {
+		return nameColor;
+	}
+
+	public void setNameColor(String nameColor) {
+		this.nameColor = nameColor;
+	}
+
+	public String getNameFormat() {
+		return nameFormat;
+	}
+
+	public void setNameFormat(String nameFormat) {
+		this.nameFormat = nameFormat;
+	}
+
+	public String getPrefixColor() {
+		return prefixColor;
+	}
+
+	public void setPrefixColor(String prefixColor) {
+		this.prefixColor = prefixColor;
+	}
+
+	public String getPrefixFormat() {
+		return prefixFormat;
+	}
+
+	public void setPrefixFormat(String prefixFormat) {
+		this.prefixFormat = prefixFormat;
+	}
+
+	public String getFirstLogin() {
+		return firstLogin;
+	}
+
+	public void setFirstLogin(String firstLogin) {
+		this.firstLogin = firstLogin;
+	}
+
+	public String getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(String lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public String getTimePlayed() {
+		return timePlayed;
+	}
+
+	public void setTimePlayed(String timePlayed) {
+		this.timePlayed = timePlayed;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public Set<DeathModel> getAssasins() {
+		return assasins;
+	}
+
+	public void setAssasins(Set<DeathModel> assasins) {
+		this.assasins = assasins;
+	}
+
+	public Set<DeathModel> getMurdereds() {
+		return murdereds;
+	}
+
+	public void setMurdereds(Set<DeathModel> murdereds) {
+		this.murdereds = murdereds;
+	}
+
+	public Set<CommandModel> getCommands() {
+		return commands;
+	}
+
+	public void setCommands(Set<CommandModel> commands) {
+		this.commands = commands;
+	}
+
+	public Set<PunishmentModel> getPunishments() {
+		return punishments;
+	}
+
+	public void setPunishments(Set<PunishmentModel> punishments) {
+		this.punishments = punishments;
+	}
+
+	public Set<WarpModel> getWarps() {
+		return warps;
+	}
+
+	public void setWarps(Set<WarpModel> warps) {
+		this.warps = warps;
+	}
+	
+}

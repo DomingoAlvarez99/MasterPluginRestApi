@@ -1,17 +1,13 @@
-package org.masterserver.repository;
+package org.masterserver.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.masterserver.model.PlayerModel;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface PlayerRepository extends JpaRepository<PlayerModel, Long> {
-	
-	Optional<PlayerModel> findByUuid(String uuid);
-	Optional<PlayerModel> findByName(String name);
+public interface PlayerService extends CommonService<PlayerModel> {
+
+	PlayerModel findByUuid(String uuid);
+	PlayerModel findByName(String name);
 	List<PlayerModel> findByPrefix(String prefix);
 	List<PlayerModel> findByNameColor(String name);
 	List<PlayerModel> findByNameFormat(String nameFormat);

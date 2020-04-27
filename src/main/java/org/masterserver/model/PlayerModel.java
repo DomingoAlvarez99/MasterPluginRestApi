@@ -1,5 +1,6 @@
 package org.masterserver.model;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,14 +43,14 @@ public class PlayerModel {
 	@Column(name = "prefix_format", length = 50)
 	private String prefixFormat;
 	
-	@Column(name = "first_login", length = 50)
-	private String firstLogin;
+	@Column(name = "first_login")
+	private Calendar firstLogin;
 	
-	@Column(name = "last_login", length = 50)
-	private String lastLogin;
+	@Column(name = "last_login")
+	private Calendar lastLogin;
 	
-	@Column(name = "time_played", length = 50)
-	private String timePlayed;
+	@Column(name = "time_played")
+	private long timePlayed;
 	
 	@Column(name = "ip", length = 50)
 	private String ip;
@@ -70,7 +71,7 @@ public class PlayerModel {
     private Set<WarpModel> warps = new HashSet<>();
 
 	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
-			String prefixColor, String prefixFormat, String firstLogin, String lastLogin, String timePlayed, String ip,
+			String prefixColor, String prefixFormat, Calendar firstLogin, Calendar lastLogin, long timePlayed, String ip,
 			Set<DeathModel> assasins, Set<DeathModel> murdereds, Set<CommandModel> commands,
 			Set<PunishmentModel> punishments, Set<WarpModel> warps) {
 		this.id = id;
@@ -90,6 +91,23 @@ public class PlayerModel {
 		this.commands = commands;
 		this.punishments = punishments;
 		this.warps = warps;
+	}
+
+	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
+			String prefixColor, String prefixFormat, Calendar firstLogin, Calendar lastLogin, long timePlayed,
+			String ip) {
+		this.id = id;
+		this.uuid = uuid;
+		this.name = name;
+		this.prefix = prefix;
+		this.nameColor = nameColor;
+		this.nameFormat = nameFormat;
+		this.prefixColor = prefixColor;
+		this.prefixFormat = prefixFormat;
+		this.firstLogin = firstLogin;
+		this.lastLogin = lastLogin;
+		this.timePlayed = timePlayed;
+		this.ip = ip;
 	}
 
 	public PlayerModel(long id) {
@@ -160,27 +178,27 @@ public class PlayerModel {
 		this.prefixFormat = prefixFormat;
 	}
 
-	public String getFirstLogin() {
+	public Calendar getFirstLogin() {
 		return firstLogin;
 	}
 
-	public void setFirstLogin(String firstLogin) {
+	public void setFirstLogin(Calendar firstLogin) {
 		this.firstLogin = firstLogin;
 	}
 
-	public String getLastLogin() {
+	public Calendar getLastLogin() {
 		return lastLogin;
 	}
 
-	public void setLastLogin(String lastLogin) {
+	public void setLastLogin(Calendar lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 
-	public String getTimePlayed() {
+	public long getTimePlayed() {
 		return timePlayed;
 	}
 
-	public void setTimePlayed(String timePlayed) {
+	public void setTimePlayed(long timePlayed) {
 		this.timePlayed = timePlayed;
 	}
 

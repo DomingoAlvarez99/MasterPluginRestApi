@@ -59,6 +59,14 @@ public class DeathModel {
 		this.assasin = assasin;
 		this.murdered = murdered;
 	}
+	
+	public DeathModel(long id, Calendar date, String cause, long mobId, long assasinId, long murderedId) {
+		this.id = id;
+		this.date = date;
+		this.cause = cause;
+		this.mobId = mobId;
+		this.assasinId = assasinId;
+	}
 
 	public DeathModel(long id) {
 		this.id = id;

@@ -52,6 +52,15 @@ public class WarpModel {
 		this.player = player;
 	}
 
+	public WarpModel(long id, String name, long coordinateX, long coordinateY, long coordinateZ, long playerId) {
+		this.id = id;
+		this.name = name;
+		this.coordinateX = coordinateX;
+		this.coordinateY = coordinateY;
+		this.coordinateZ = coordinateZ;
+		this.playerId = playerId;
+	}
+
 	public WarpModel(long id) {
 		super();
 		this.id = id;

@@ -48,6 +48,14 @@ public class PunishmentModel {
 		this.playerId = playerId;
 		this.player = player;
 	}
+	
+	public PunishmentModel(long id, String description, String type, Calendar date, long playerId) {
+		this.id = id;
+		this.description = description;
+		this.type = type;
+		this.date = date;
+		this.playerId = playerId;
+	}
 
 	public PunishmentModel(long id) {
 		this.id = id;

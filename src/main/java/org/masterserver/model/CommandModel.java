@@ -44,6 +44,13 @@ public class CommandModel {
 		this.playerId = playerId;
 		this.player = player;
 	}
+	
+	public CommandModel(long id, String command, Calendar date, long playerId) {
+		this.id = id;
+		this.command = command;
+		this.date = date;
+		this.playerId = playerId;
+	}
 
 	public CommandModel(long id) {
 		this.id = id;

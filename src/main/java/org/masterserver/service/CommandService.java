@@ -7,8 +7,8 @@ import org.masterserver.model.CommandModel;
 
 public interface CommandService extends CommonService<CommandModel> {
 
-	List<CommandModel> findByPlayerId(long playerId);
-	List<CommandModel> findByCommand(String command);
-	List<CommandModel> findByDate(Calendar date);
+	List<CommandModel> getByPlayerId(long playerId);
+	List<CommandModel> getByCommand(String command);
+	List<CommandModel> getByDate(Calendar date);
 	
 }

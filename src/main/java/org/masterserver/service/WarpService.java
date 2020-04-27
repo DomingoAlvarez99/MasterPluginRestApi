@@ -6,10 +6,10 @@ import org.masterserver.model.WarpModel;
 
 public interface WarpService extends CommonService<WarpModel> {
 
-	List<WarpModel> findByName(String name);
-	List<WarpModel> findByCoordinateX(long coordinateX);
-	List<WarpModel> findByCoordinateY(long coordinateY);
-	List<WarpModel> findByCoordinateZ(long coordinateZ);
-	List<WarpModel> findByPlayerId(long playerId);
+	List<WarpModel> getByName(String name);
+	List<WarpModel> getByCoordinateX(long coordinateX);
+	List<WarpModel> getByCoordinateY(long coordinateY);
+	List<WarpModel> getByCoordinateZ(long coordinateZ);
+	List<WarpModel> getByPlayerId(long playerId);
 	
 }

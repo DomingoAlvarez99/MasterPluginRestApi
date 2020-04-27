@@ -19,12 +19,16 @@ public class DeathServiceImpl implements DeathService {
 
 	@Override
 	public List<DeathModel> getAll() {
-		return repository.findAll();
+		List<DeathModel> deaths = repository.findAll();
+		if (deaths.isEmpty()) {
+			throw new ResourceNotFoundException("Deaths not found.");
+		}
+		return deaths;
 	}
 
 	@Override
 	public DeathModel getById(long id) {
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Death not found."));
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't get death."));
 	}
 
 	@Override
@@ -35,40 +39,60 @@ public class DeathServiceImpl implements DeathService {
 
 	@Override
 	public DeathModel update(long id, DeathModel commandModel) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Death not found, can't update the command."));
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't update death."));
 		commandModel.setId(id);
 		return repository.save(commandModel);
 	}
 
 	@Override
 	public void delete(long id) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Death not found, can't delete the command."));
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't delete death."));
 		repository.deleteById(id);
 	}
 
 	@Override
-	public List<DeathModel> findByDate(Calendar date) {
-		return repository.findByDate(date);
+	public List<DeathModel> getByDate(Calendar date) {
+		List<DeathModel> deaths = repository.findByDate(date);
+		if (deaths.isEmpty()) {
+			throw new ResourceNotFoundException("Date not found, couldn't get deaths.");
+		}
+		return deaths;
 	}
 
 	@Override
-	public List<DeathModel> findByCause(String cause) {
-		return repository.findByCause(cause);
+	public List<DeathModel> getByCause(String cause) {
+		List<DeathModel> deaths = repository.findByCause(cause);
+		if (deaths.isEmpty()) {
+			throw new ResourceNotFoundException("Cause not found, couldn't get deaths.");
+		}
+		return deaths;
 	}
 
 	@Override
-	public List<DeathModel> findByMobId(long mobId) {
-		return repository.findByMobId(mobId);
+	public List<DeathModel> getByMobId(long mobId) {
+		List<DeathModel> deaths = repository.findByMobId(mobId);
+		if (deaths.isEmpty()) {
+			throw new ResourceNotFoundException("MobId not found, couldn't get deaths.");
+		}
+		return deaths;
 	}
 
 	@Override
-	public List<DeathModel> findByAssasinId(long assasinId) {
-		return repository.findByAssasinId(assasinId);
+	public List<DeathModel> getByAssasinId(long assasinId) {
+		List<DeathModel> deaths = repository.findByAssasinId(assasinId);
+		if (deaths.isEmpty()) {
+			throw new ResourceNotFoundException("AssasinId not found, couldn't get deaths.");
+		}
+		return deaths;
 	}
 
 	@Override
-	public List<DeathModel> findByMurderedId(long murderedId) {
-		return repository.findByMurderedId(murderedId);
+	public List<DeathModel> getByMurderedId(long murderedId) {
+		List<DeathModel> deaths = repository.findByMurderedId(murderedId);
+		if (deaths.isEmpty()) {
+			throw new ResourceNotFoundException("MurderedId not found, couldn't get deaths.");
+		}
+		return deaths;
 	}
 	
 }

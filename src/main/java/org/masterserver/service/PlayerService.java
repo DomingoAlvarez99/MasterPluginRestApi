@@ -1,20 +1,21 @@
 package org.masterserver.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.masterserver.model.PlayerModel;
 
 public interface PlayerService extends CommonService<PlayerModel> {
 
-	PlayerModel findByUuid(String uuid);
-	PlayerModel findByName(String name);
-	List<PlayerModel> findByPrefix(String prefix);
-	List<PlayerModel> findByNameColor(String name);
-	List<PlayerModel> findByNameFormat(String nameFormat);
-	List<PlayerModel> findByPrefixColor(String prefixColor);
-	List<PlayerModel> findByPrefixFormat(String prefixFormat);
-	List<PlayerModel> findByFirstLogin(String firstLogin);
-	List<PlayerModel> findByLastLogin(String lastLogin);
-	List<PlayerModel> findByTimePlayed(String timePlayed);
+	PlayerModel getByUuid(String uuid);
+	PlayerModel getByName(String name);
+	List<PlayerModel> getByPrefix(String prefix);
+	List<PlayerModel> getByNameColor(String name);
+	List<PlayerModel> getByNameFormat(String nameFormat);
+	List<PlayerModel> getByPrefixColor(String prefixColor);
+	List<PlayerModel> getByPrefixFormat(String prefixFormat);
+	List<PlayerModel> getByFirstLogin(Calendar firstLogin);
+	List<PlayerModel> getByLastLogin(Calendar lastLogin);
+	List<PlayerModel> getByTimePlayed(long timePlayed);
 	
 }

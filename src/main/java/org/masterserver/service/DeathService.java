@@ -7,10 +7,10 @@ import org.masterserver.model.DeathModel;
 
 public interface DeathService extends CommonService<DeathModel> {
 
-	List<DeathModel> findByDate(Calendar date);
-	List<DeathModel> findByCause(String cause);
-	List<DeathModel> findByMobId(long mobId);
-	List<DeathModel> findByAssasinId(long assasinId);
-	List<DeathModel> findByMurderedId(long murderedId);
+	List<DeathModel> getByDate(Calendar date);
+	List<DeathModel> getByCause(String cause);
+	List<DeathModel> getByMobId(long mobId);
+	List<DeathModel> getByAssasinId(long assasinId);
+	List<DeathModel> getByMurderedId(long murderedId);
 	
 }

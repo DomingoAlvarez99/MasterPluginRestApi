@@ -19,12 +19,16 @@ public class CommandServiceImpl implements CommandService {
 
 	@Override
 	public List<CommandModel> getAll() {
-		return repository.findAll();
+		List<CommandModel> commands = repository.findAll();
+		if (commands.isEmpty()) {
+			throw new ResourceNotFoundException("Commands not found.");
+		}
+		return commands;
 	}
 
 	@Override
 	public CommandModel getById(long id) {
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Command not found."));
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't get command."));
 	}
 
 	@Override
@@ -35,30 +39,42 @@ public class CommandServiceImpl implements CommandService {
 
 	@Override
 	public CommandModel update(long id, CommandModel commandModel) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Command not found, can't update the command."));
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't get command."));
 		commandModel.setId(id);
 		return repository.save(commandModel);
 	}
 
 	@Override
 	public void delete(long id) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Command not found, can't delete the command."));
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't get command."));
 		repository.deleteById(id);
 	}
 
 	@Override
-	public List<CommandModel> findByPlayerId(long playerId) {
-		return repository.findByPlayerId(playerId);
+	public List<CommandModel> getByPlayerId(long playerId) {
+		List<CommandModel> commands = repository.findByPlayerId(playerId);
+		if (commands.isEmpty()) {
+			throw new ResourceNotFoundException("PlayerId not found, couldn't get commands.");
+		}
+		return commands;
 	}
 
 	@Override
-	public List<CommandModel> findByCommand(String command) {
-		return repository.findByCommand(command);
+	public List<CommandModel> getByCommand(String command) {
+		List<CommandModel> commands = repository.findByCommand(command);
+		if (commands.isEmpty()) {
+			throw new ResourceNotFoundException("Command not found, couldn't get commands.");
+		}
+		return commands;
 	}
 
 	@Override
-	public List<CommandModel> findByDate(Calendar date) {
-		return repository.findByDate(date);
+	public List<CommandModel> getByDate(Calendar date) {
+		List<CommandModel> commands = repository.findByDate(date);
+		if (commands.isEmpty()) {
+			throw new ResourceNotFoundException("Date not found, couldn't get commands.");
+		}
+		return commands;
 	}
 	
 }

@@ -18,12 +18,16 @@ public class PunishmentServiceImpl implements PunishmentService {
 
 	@Override
 	public List<PunishmentModel> getAll() {
+		List<PunishmentModel> punishments = repository.findAll();
+		if (punishments.isEmpty()) {
+			throw new ResourceNotFoundException("Punishments not found.");
+		}
 		return repository.findAll();
 	}
 
 	@Override
 	public PunishmentModel getById(long id) {
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Punishment not found."));
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't get punishment."));
 	}
 
 	@Override
@@ -33,35 +37,51 @@ public class PunishmentServiceImpl implements PunishmentService {
 
 	@Override
 	public PunishmentModel update(long id, PunishmentModel commandModel) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Punishment not found, can't update the command."));
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't update punishment."));
 		commandModel.setId(id);
 		return repository.save(commandModel);
 	}
 
 	@Override
 	public void delete(long id) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Punishment not found, can't delete the command."));
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't delete punishment."));
 		repository.deleteById(id);
 	}
 
 	@Override
-	public List<PunishmentModel> findByDate(Calendar date) {
-		return repository.findByDate(date);
+	public List<PunishmentModel>getByDate(Calendar date) {
+		List<PunishmentModel> punishments = repository.findByDate(date);
+		if (punishments.isEmpty()) {
+			throw new ResourceNotFoundException("Date not found, couldn't get punishments.");
+		}
+		return punishments;
 	}
 
 	@Override
-	public List<PunishmentModel> findByType(String type) {
-		return repository.findByType(type);
+	public List<PunishmentModel> getByType(String type) {
+		List<PunishmentModel> punishments = repository.findByType(type);
+		if (punishments.isEmpty()) {
+			throw new ResourceNotFoundException("Type not found, couldn't get punishments.");
+		}
+		return punishments;
 	}
 
 	@Override
-	public List<PunishmentModel> findByDescription(String type) {
-		return repository.findByDescription(type);
+	public List<PunishmentModel> getByDescription(String type) {
+		List<PunishmentModel> punishments = repository.findByDescription(type);
+		if (punishments.isEmpty()) {
+			throw new ResourceNotFoundException("Type not found, couldn't get punishments.");
+		}
+		return punishments;
 	}
 
 	@Override
-	public List<PunishmentModel> findByPlayerId(long playerId) {
-		return repository.findByPlayerId(playerId);
+	public List<PunishmentModel> getByPlayerId(long playerId) {
+		List<PunishmentModel> punishments = repository.findByPlayerId(playerId);
+		if (punishments.isEmpty()) {
+			throw new ResourceNotFoundException("PlayerId not found, couldn't get punishments.");
+		}
+		return punishments;
 	}
 	
 }

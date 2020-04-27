@@ -17,12 +17,16 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public List<ItemModel> getAll() {
-		return repository.findAll();
+		List<ItemModel> items = repository.findAll();
+		if (items.isEmpty()) {
+			throw new ResourceNotFoundException("Items not found.");
+		}
+		return items;
 	}
 
 	@Override
 	public ItemModel getById(long id) {
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item not found."));
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't get item."));
 	}
 
 	@Override
@@ -32,35 +36,43 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public ItemModel update(long id, ItemModel commandModel) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item not found, can't update the item."));
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't update item."));
 		commandModel.setId(id);
 		return repository.save(commandModel);
 	}
 
 	@Override
 	public void delete(long id) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item not found, can't delete the item."));
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't delete item."));
 		repository.deleteById(id);
 	}
 
 	@Override
-	public ItemModel findByUuid(long uuid) {
-		return repository.findByUuid(uuid).orElseThrow(() -> new ResourceNotFoundException("Item not found"));
+	public ItemModel getByUuid(long uuid) {
+		return repository.findByUuid(uuid).orElseThrow(() -> new ResourceNotFoundException("Uuid not found, couldn't get item."));
 	}
 
 	@Override
-	public List<ItemModel> findByDurability(long durability) {
-		return repository.findByDurability(durability);
+	public List<ItemModel> getByDurability(long durability) {
+		List<ItemModel> items = repository.findByDurability(durability);
+		if (items.isEmpty()) {
+			throw new ResourceNotFoundException("Durability not found, couldn't get items.");
+		}
+		return items;
 	}
 
 	@Override
-	public ItemModel findByName(String name) {
-		return repository.findByName(name).orElseThrow(() -> new ResourceNotFoundException("Item not found"));
+	public ItemModel getByName(String name) {
+		return repository.findByName(name).orElseThrow(() -> new ResourceNotFoundException("Name not found, couldn't get item."));
 	}
 
 	@Override
-	public List<ItemModel> findByType(String type) {
-		return repository.findByType(type);
+	public List<ItemModel> getByType(String type) {
+		List<ItemModel> items = repository.findByType(type);
+		if (items.isEmpty()) {
+			throw new ResourceNotFoundException("Type not found, couldn't get items.");
+		}
+		return items;
 	}
 	
 }

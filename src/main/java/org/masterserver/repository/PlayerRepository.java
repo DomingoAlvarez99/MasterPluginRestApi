@@ -1,5 +1,6 @@
 package org.masterserver.repository;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +18,8 @@ public interface PlayerRepository extends JpaRepository<PlayerModel, Long> {
 	List<PlayerModel> findByNameFormat(String nameFormat);
 	List<PlayerModel> findByPrefixColor(String prefixColor);
 	List<PlayerModel> findByPrefixFormat(String prefixFormat);
-	List<PlayerModel> findByFirstLogin(String firstLogin);
-	List<PlayerModel> findByLastLogin(String lastLogin);
-	List<PlayerModel> findByTimePlayed(String timePlayed);
+	List<PlayerModel> findByFirstLogin(Calendar firstLogin);
+	List<PlayerModel> findByLastLogin(Calendar lastLogin);
+	List<PlayerModel> findByTimePlayed(long timePlayed);
 	
 }

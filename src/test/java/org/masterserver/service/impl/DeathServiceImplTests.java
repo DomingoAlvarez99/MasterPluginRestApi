@@ -9,7 +9,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.masterserver.exception.ResourceNotFoundException;
 import org.masterserver.model.DeathModel;
 import org.masterserver.repository.DeathRepository;
@@ -18,9 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DeathServiceImplTests implements DeathServiceTests {
 
 	@Mock

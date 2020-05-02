@@ -9,35 +9,36 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name="\"warp\"")
+@Table(name = "\"warp\"", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "player_id" }) })
 public class WarpModel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
-	
+
 	@Column(name = "name", length = 50)
 	private String name;
-	
+
 	@Column(name = "coordinate_x")
 	private long coordinateX;
-	
+
 	@Column(name = "coordinate_y")
 	private long coordinateY;
-	
+
 	@Column(name = "coordinate_z")
 	private long coordinateZ;
-	
+
 	@Column(name = "player_id")
 	private long playerId;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="player_id", insertable = false, updatable = false)
+	@JoinColumn(name = "player_id", insertable = false, updatable = false)
 	@JsonBackReference
 	private PlayerModel player;
 
@@ -121,5 +122,5 @@ public class WarpModel {
 	public void setPlayer(PlayerModel player) {
 		this.player = player;
 	}
-	
+
 }

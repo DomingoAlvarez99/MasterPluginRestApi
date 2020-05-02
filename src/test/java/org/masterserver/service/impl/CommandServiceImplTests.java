@@ -9,7 +9,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.masterserver.exception.ResourceNotFoundException;
 import org.masterserver.model.CommandModel;
 import org.masterserver.repository.CommandRepository;
@@ -18,9 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class CommandServiceImplTests implements CommandServiceTests {
 
 	@Mock
@@ -48,7 +45,6 @@ public class CommandServiceImplTests implements CommandServiceTests {
 	@Test
 	@Override
 	public void getById() {
-//		Calendar.getInstance(Locale.GERMAN), 12l, new PlayerModel(1l, "8c898aa3-b0fb-4695-82fc-a816a7a3c3ec", "Federico", "[Dev]", "&3", "&l", "&4", "&l", Calendar.getInstance(Locale.GERMAN), Calendar.getInstance(Locale.GERMAN), 1232312l, "17.212.1", null, null, null, null, null)
 		CommandModel command = new CommandModel(1l, "seen", Calendar.getInstance(Locale.GERMANY), 12l);
 		Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(Optional.of(command));
 		CommandModel result = service.getById(Mockito.anyLong());
@@ -97,7 +93,7 @@ public class CommandServiceImplTests implements CommandServiceTests {
 	@Test
 	@Override
 	public void getByPlayerId() {
-		Mockito.when(repository.findByPlayerId((Mockito.anyLong()))).thenReturn(new ArrayList<CommandModel>());
+		Mockito.when(repository.findByPlayerId(Mockito.anyLong())).thenReturn(new ArrayList<CommandModel>());
 		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
 			List<CommandModel> commands = service.getByPlayerId(Mockito.anyLong());
 			Assertions.assertNull(commands);
@@ -108,7 +104,7 @@ public class CommandServiceImplTests implements CommandServiceTests {
 	@Test
 	@Override
 	public void getByCommand() {
-		Mockito.when(repository.findByCommand((Mockito.anyString()))).thenReturn(new ArrayList<CommandModel>());
+		Mockito.when(repository.findByCommand(Mockito.anyString())).thenReturn(new ArrayList<CommandModel>());
 		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
 			List<CommandModel> commands = service.getByCommand(Mockito.anyString());
 			Assertions.assertNull(commands);
@@ -119,7 +115,7 @@ public class CommandServiceImplTests implements CommandServiceTests {
 	@Test
 	@Override
 	public void getByDate() {
-		Mockito.when(repository.findByDate((Mockito.any()))).thenReturn(new ArrayList<CommandModel>());
+		Mockito.when(repository.findByDate(Mockito.any())).thenReturn(new ArrayList<CommandModel>());
 		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
 			List<CommandModel> commands = service.getByDate(Mockito.any());
 			Assertions.assertNull(commands);

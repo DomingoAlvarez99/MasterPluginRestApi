@@ -39,6 +39,10 @@ public class ItemModel {
 	public ItemModel(long id) {
 		this.id = id;
 	}
+	
+	public ItemModel() {
+
+	}
 
 	public long getId() {
 		return id;

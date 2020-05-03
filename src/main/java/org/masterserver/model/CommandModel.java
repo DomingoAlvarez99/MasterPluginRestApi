@@ -55,6 +55,10 @@ public class CommandModel {
 	public CommandModel(long id) {
 		this.id = id;
 	}
+	
+	public CommandModel() {
+		
+	}
 
 	public long getId() {
 		return id;

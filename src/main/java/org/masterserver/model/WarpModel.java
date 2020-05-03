@@ -63,8 +63,11 @@ public class WarpModel {
 	}
 
 	public WarpModel(long id) {
-		super();
 		this.id = id;
+	}
+	
+	public WarpModel() {
+
 	}
 
 	public long getId() {

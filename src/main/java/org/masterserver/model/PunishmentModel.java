@@ -60,6 +60,10 @@ public class PunishmentModel {
 	public PunishmentModel(long id) {
 		this.id = id;
 	}
+	
+	public PunishmentModel() {
+		
+	}
 
 	public long getId() {
 		return id;

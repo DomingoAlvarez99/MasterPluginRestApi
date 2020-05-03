@@ -113,6 +113,10 @@ public class PlayerModel {
 	public PlayerModel(long id) {
 		this.id = id;
 	}
+	
+	public PlayerModel() {
+		
+	}
 
 	public long getId() {
 		return id;

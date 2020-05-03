@@ -71,6 +71,10 @@ public class DeathModel {
 	public DeathModel(long id) {
 		this.id = id;
 	}
+	
+	public DeathModel() {
+		
+	}
 
 	public long getId() {
 		return id;

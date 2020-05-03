@@ -8,6 +8,6 @@ public interface CommonService<T> {
 	T getById(long id);
 	T create(T object);
 	T update(long id, T object);
-	void delete(long id);
+	boolean delete(long id);
 	
 }

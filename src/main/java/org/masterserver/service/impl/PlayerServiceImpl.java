@@ -43,9 +43,10 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 
 	@Override
-	public void delete(long id) {
+	public boolean delete(long id) {
 		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't delete player."));
 		repository.deleteById(id);
+		return true;
 	}
 
 	@Override

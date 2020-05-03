@@ -45,9 +45,10 @@ public class CommandServiceImpl implements CommandService {
 	}
 
 	@Override
-	public void delete(long id) {
+	public boolean delete(long id) {
 		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't get command."));
 		repository.deleteById(id);
+		return true;
 	}
 
 	@Override

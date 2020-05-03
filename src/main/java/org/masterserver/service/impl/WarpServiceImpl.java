@@ -42,9 +42,10 @@ public class WarpServiceImpl implements WarpService {
 	}
 
 	@Override
-	public void delete(long id) {
+	public boolean delete(long id) {
 		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Warp not found, couldn't delete warp."));
 		repository.deleteById(id);
+		return true;
 	}
 
 	@Override

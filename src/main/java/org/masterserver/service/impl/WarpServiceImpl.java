@@ -26,24 +26,24 @@ public class WarpServiceImpl implements WarpService {
 
 	@Override
 	public WarpModel getById(long id) {
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't get warp."));
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id {" + id + "} not found, couldn't get warp."));
 	}
 
 	@Override
-	public WarpModel create(WarpModel object) {
-		return repository.save(object);
+	public WarpModel create(WarpModel warp) {
+		return repository.save(warp);
 	}
 
 	@Override
-	public WarpModel update(long id, WarpModel commandModel) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Warp not found, couldn't update warp."));
-		commandModel.setId(id);
-		return repository.save(commandModel);
+	public WarpModel update(long id, WarpModel warp) {
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Warp {" + id + "} not found, couldn't update warp."));
+		warp.setId(id);
+		return repository.save(warp);
 	}
 
 	@Override
 	public boolean delete(long id) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Warp not found, couldn't delete warp."));
+		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Warp {" + id + "} not found, couldn't delete warp."));
 		repository.deleteById(id);
 		return true;
 	}
@@ -52,7 +52,7 @@ public class WarpServiceImpl implements WarpService {
 	public List<WarpModel> getByName(String name) {
 		List<WarpModel> warps = repository.findByName(name);
 		if (warps.isEmpty()) {
-			throw new ResourceNotFoundException("Name not found, couldn't get warps.");
+			throw new ResourceNotFoundException("Name {" + name + "} not found, couldn't get warps.");
 		}
 		return warps;
 	}
@@ -61,7 +61,7 @@ public class WarpServiceImpl implements WarpService {
 	public List<WarpModel> getByCoordinateX(long coordinateX) {
 		List<WarpModel> warps = repository.findByCoordinateX(coordinateX);
 		if (warps.isEmpty()) {
-			throw new ResourceNotFoundException("CoordinateX not found, couldn't get warps.");
+			throw new ResourceNotFoundException("CoordinateX {" + coordinateX + "} not found, couldn't get warps.");
 		}
 		return warps;
 	}
@@ -70,7 +70,7 @@ public class WarpServiceImpl implements WarpService {
 	public List<WarpModel> getByCoordinateY(long coordinateY) {
 		List<WarpModel> warps = repository.findByCoordinateY(coordinateY);
 		if (warps.isEmpty()) {
-			throw new ResourceNotFoundException("CoordinateY not found, couldn't get warps.");
+			throw new ResourceNotFoundException("CoordinateY {" + coordinateY + "} not found, couldn't get warps.");
 		}
 		return warps;
 	}
@@ -79,7 +79,7 @@ public class WarpServiceImpl implements WarpService {
 	public List<WarpModel> getByCoordinateZ(long coordinateZ) {
 		List<WarpModel> warps = repository.findByCoordinateZ(coordinateZ);
 		if (warps.isEmpty()) {
-			throw new ResourceNotFoundException("PlayerId not found, couldn't get warps.");
+			throw new ResourceNotFoundException("PlayerId {" + coordinateZ + "} not found, couldn't get warps.");
 		}
 		return warps;
 	}
@@ -88,7 +88,7 @@ public class WarpServiceImpl implements WarpService {
 	public List<WarpModel> getByPlayerId(long playerId) {
 		List<WarpModel> warps = repository.findByPlayerId(playerId);
 		if (warps.isEmpty()) {
-			throw new ResourceNotFoundException("PlayerId not found, couldn't get warps.");
+			throw new ResourceNotFoundException("PlayerId {" + playerId + "} not found, couldn't get warps.");
 		}
 		return warps;
 	}

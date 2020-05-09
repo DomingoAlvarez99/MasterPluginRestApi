@@ -9,8 +9,6 @@ public interface PlayerServiceTests extends CommonServiceTests {
 	void getByNameFormat();
 	void getByPrefixColor();
 	void getByPrefixFormat();
-	void getByFirstLogin();
-	void getByLastLogin();
 	void getByTimePlayed();
 	
 }

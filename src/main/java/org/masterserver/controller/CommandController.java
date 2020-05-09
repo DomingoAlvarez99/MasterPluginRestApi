@@ -1,6 +1,5 @@
 package org.masterserver.controller;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.masterserver.model.CommandModel;
@@ -47,19 +46,9 @@ public class CommandController {
 		return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("/commands/getByDate/{date}")
-	public ResponseEntity<List<CommandModel>> getByDate(@PathVariable("date") Calendar date) {
-		return new ResponseEntity<>(service.getByDate(date), HttpStatus.OK);
-	}
-	
 	@GetMapping("/commands/getByCommand/{command}")
 	public ResponseEntity<List<CommandModel>> getByCommand(@PathVariable("command") String command) {
 		return new ResponseEntity<>(service.getByCommand(command), HttpStatus.OK);
-	}
-	
-	@GetMapping("/commands/getByPlayerId/{playerId}")
-	public ResponseEntity<List<CommandModel>> getByPlayerId(@PathVariable("playerId") long playerId) {
-		return new ResponseEntity<>(service.getByPlayerId(playerId), HttpStatus.OK);
 	}
 
 }

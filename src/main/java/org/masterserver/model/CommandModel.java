@@ -29,27 +29,22 @@ public class CommandModel {
 	@Column(name = "date")
 	private Calendar date;
 	
-	@Column(name = "player_id")
-	private long playerId;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="player_id", insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="player_id")
 	@JsonBackReference
 	private PlayerModel player;
 
-	public CommandModel(long id, String command, Calendar date, long playerId, PlayerModel player) {
+	public CommandModel(long id, String command, Calendar date, PlayerModel player) {
 		this.id = id;
 		this.command = command;
 		this.date = date;
-		this.playerId = playerId;
 		this.player = player;
 	}
 	
-	public CommandModel(long id, String command, Calendar date, long playerId) {
+	public CommandModel(long id, String command, Calendar date) {
 		this.id = id;
 		this.command = command;
 		this.date = date;
-		this.playerId = playerId;
 	}
 
 	public CommandModel(long id) {
@@ -82,14 +77,6 @@ public class CommandModel {
 
 	public void setDate(Calendar date) {
 		this.date = date;
-	}
-
-	public long getPlayerId() {
-		return playerId;
-	}
-
-	public void setPlayerId(long playerId) {
-		this.playerId = playerId;
 	}
 
 	public PlayerModel getPlayer() {

@@ -9,7 +9,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.masterserver.exception.ResourceNotFoundException;
 import org.masterserver.model.PunishmentModel;
 import org.masterserver.repository.PunishmentRepository;
 import org.masterserver.service.PunishmentServiceTests;
@@ -17,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.web.server.ResponseStatusException;
 
 public class PunishmentServiceImplTests implements PunishmentServiceTests {
 
@@ -35,7 +35,7 @@ public class PunishmentServiceImplTests implements PunishmentServiceTests {
 	@Override
 	public void getAll() {
 		Mockito.when(repository.findAll()).thenReturn(new ArrayList<PunishmentModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PunishmentModel> punishments = service.getAll();
 			Assertions.assertNull(punishments);
 	    });
@@ -45,37 +45,34 @@ public class PunishmentServiceImplTests implements PunishmentServiceTests {
 	@Test
 	@Override
 	public void getById() {
-		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", Calendar.getInstance(Locale.GERMANY), 1l);
+		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", Calendar.getInstance(Locale.GERMANY));
 		Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(Optional.of(punishment));
 		PunishmentModel result = service.getById(Mockito.anyLong());
 		Assertions.assertEquals(1l, result.getId());
 		Assertions.assertEquals("desc", result.getDescription());
 		Assertions.assertEquals("ban", result.getType());
 		Assertions.assertNotNull(result.getDate());
-		Assertions.assertEquals(1l, result.getPlayerId());
 		Mockito.verify(repository, Mockito.times(1)).findById(Mockito.anyLong());
 	}
 
 	@Test
 	@Override
 	public void create() {
-		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", Calendar.getInstance(Locale.GERMANY), 1l);
+		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", Calendar.getInstance(Locale.GERMANY));
 		Mockito.when(repository.save(punishment)).thenReturn(punishment);
-		PunishmentModel result = service.create(punishment);
-		Assertions.assertEquals(1l, result.getId());
-		Assertions.assertEquals("desc", result.getDescription());
-		Assertions.assertEquals("ban", result.getType());
-		Assertions.assertNotNull(result.getDate());
-		Assertions.assertEquals(1l, result.getPlayerId());
-		Mockito.verify(repository, Mockito.times(1)).save(punishment);
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			PunishmentModel result = service.create(punishment);
+			Assertions.assertNull(result);
+	    });
+		Mockito.verify(repository, Mockito.times(0)).save(punishment);
 	}
 
 	@Test
 	@Override
 	public void update() {
-		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", Calendar.getInstance(Locale.GERMANY), 1l);
+		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", Calendar.getInstance(Locale.GERMANY));
 		Mockito.when(repository.save(punishment)).thenReturn(punishment);
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			service.update(1l, punishment);
 	    });
 		Mockito.verify(repository, Mockito.times(1)).findById(Mockito.anyLong());
@@ -85,7 +82,7 @@ public class PunishmentServiceImplTests implements PunishmentServiceTests {
 	@Test
 	@Override
 	public void delete() {
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			service.delete(Mockito.anyLong());
 	    });
 		Mockito.verify(repository, Mockito.times(1)).findById(Mockito.anyLong());
@@ -96,7 +93,7 @@ public class PunishmentServiceImplTests implements PunishmentServiceTests {
 	@Override
 	public void getByType() {
 		Mockito.when(repository.findByType((Mockito.anyString()))).thenReturn(new ArrayList<PunishmentModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PunishmentModel> punishments = service.getByType(Mockito.anyString());
 			Assertions.assertNull(punishments);
 	    });
@@ -107,7 +104,7 @@ public class PunishmentServiceImplTests implements PunishmentServiceTests {
 	@Override
 	public void getByDate() {
 		Mockito.when(repository.findByDate((Mockito.any()))).thenReturn(new ArrayList<PunishmentModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PunishmentModel> punishments = service.getByDate(Mockito.any());
 			Assertions.assertNull(punishments);
 	    });
@@ -118,22 +115,11 @@ public class PunishmentServiceImplTests implements PunishmentServiceTests {
 	@Override
 	public void getByDescription() {
 		Mockito.when(repository.findByDescription((Mockito.anyString()))).thenReturn(new ArrayList<PunishmentModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PunishmentModel> punishments = service.getByDescription(Mockito.anyString());
 			Assertions.assertNull(punishments);
 	    });
 		Mockito.verify(repository, Mockito.times(1)).findByDescription(Mockito.anyString());
-	}
-
-	@Test
-	@Override
-	public void getByPlayerId() {
-		Mockito.when(repository.findByPlayerId((Mockito.anyLong()))).thenReturn(new ArrayList<PunishmentModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-			List<PunishmentModel> punishments = service.getByPlayerId(Mockito.anyLong());
-			Assertions.assertNull(punishments);
-	    });
-		Mockito.verify(repository, Mockito.times(1)).findByPlayerId(Mockito.anyLong());
 	}
 
 }

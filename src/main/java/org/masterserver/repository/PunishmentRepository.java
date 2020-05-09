@@ -13,6 +13,5 @@ public interface PunishmentRepository extends JpaRepository<PunishmentModel, Lon
 	List<PunishmentModel> findByDate(Calendar date);
 	List<PunishmentModel> findByType(String type);
 	List<PunishmentModel> findByDescription(String type);
-	List<PunishmentModel> findByPlayerId(long playerId);
 	
 }

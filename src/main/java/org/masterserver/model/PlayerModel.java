@@ -14,65 +14,65 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="\"player\"")
+@Table(name = "\"player\"")
 public class PlayerModel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
-	
+
 	@Column(name = "uuid", length = 50)
 	private String uuid;
-	
+
 	@Column(name = "name", length = 50)
 	private String name;
-	
+
 	@Column(name = "prefix", length = 50)
 	private String prefix;
-	
-	@Column(name = "name_color", length = 50)
+
+	@Column(name = "name_color", length = 1)
 	private String nameColor;
-	
-	@Column(name = "name_format", length = 50)
+
+	@Column(name = "name_format", length = 1)
 	private String nameFormat;
-	
-	@Column(name = "prefix_color", length = 50)
+
+	@Column(name = "prefix_color", length = 1)
 	private String prefixColor;
-	
-	@Column(name = "prefix_format", length = 50)
+
+	@Column(name = "prefix_format", length = 1)
 	private String prefixFormat;
-	
+
 	@Column(name = "first_login")
 	private Calendar firstLogin;
-	
+
 	@Column(name = "last_login")
 	private Calendar lastLogin;
-	
+
 	@Column(name = "time_played")
 	private long timePlayed;
-	
+
 	@Column(name = "ip", length = 50)
 	private String ip;
-	
-	@OneToMany(mappedBy="assasin",fetch = FetchType.LAZY)
-    private Set<DeathModel> assasins = new HashSet<>();
-	
-	@OneToMany(mappedBy="murdered",fetch = FetchType.LAZY)
-    private Set<DeathModel> murdereds = new HashSet<>();
-	
-	@OneToMany(mappedBy="player",fetch = FetchType.LAZY)
-    private Set<CommandModel> commands = new HashSet<>();
-	
-	@OneToMany(mappedBy="player",fetch = FetchType.LAZY)
-    private Set<PunishmentModel> punishments = new HashSet<>();
-	
-	@OneToMany(mappedBy="player",fetch = FetchType.LAZY)
-    private Set<WarpModel> warps = new HashSet<>();
+
+	@OneToMany(mappedBy = "assasin", fetch = FetchType.EAGER)
+	private Set<DeathModel> assasins = new HashSet<>();
+
+	@OneToMany(mappedBy = "murdered", fetch = FetchType.EAGER)
+	private Set<DeathModel> murdereds = new HashSet<>();
+
+	@OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+	private Set<CommandModel> commands = new HashSet<>();
+
+	@OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+	private Set<PunishmentModel> punishments = new HashSet<>();
+
+	@OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+	private Set<WarpModel> warps = new HashSet<>();
 
 	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
-			String prefixColor, String prefixFormat, Calendar firstLogin, Calendar lastLogin, long timePlayed, String ip,
-			Set<DeathModel> assasins, Set<DeathModel> murdereds, Set<CommandModel> commands,
+			String prefixColor, String prefixFormat, Calendar firstLogin, Calendar lastLogin, long timePlayed,
+			String ip, Set<DeathModel> assasins, Set<DeathModel> murdereds, Set<CommandModel> commands,
 			Set<PunishmentModel> punishments, Set<WarpModel> warps) {
 		this.id = id;
 		this.uuid = uuid;
@@ -113,9 +113,9 @@ public class PlayerModel {
 	public PlayerModel(long id) {
 		this.id = id;
 	}
-	
+
 	public PlayerModel() {
-		
+
 	}
 
 	public long getId() {
@@ -253,5 +253,5 @@ public class PlayerModel {
 	public void setWarps(Set<WarpModel> warps) {
 		this.warps = warps;
 	}
-	
+
 }

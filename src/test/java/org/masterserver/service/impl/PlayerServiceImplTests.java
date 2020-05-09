@@ -9,7 +9,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.masterserver.exception.ResourceNotFoundException;
 import org.masterserver.model.PlayerModel;
 import org.masterserver.repository.PlayerRepository;
 import org.masterserver.service.PlayerServiceTests;
@@ -17,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.web.server.ResponseStatusException;
 
 public class PlayerServiceImplTests implements PlayerServiceTests {
 
@@ -35,7 +35,7 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	@Override
 	public void getAll() {
 		Mockito.when(repository.findAll()).thenReturn(new ArrayList<PlayerModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PlayerModel> players = service.getAll();
 			Assertions.assertNull(players);
 		});
@@ -95,7 +95,7 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 				"&l", "&4", "&l", Calendar.getInstance(Locale.GERMAN), Calendar.getInstance(Locale.GERMAN), 1232312l,
 				"17.212.1");
 		Mockito.when(repository.save(player)).thenReturn(player);
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			service.update(1l, player);
 		});
 		Mockito.verify(repository, Mockito.times(1)).findById(Mockito.anyLong());
@@ -105,7 +105,7 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	@Test
 	@Override
 	public void delete() {
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			service.delete(Mockito.anyLong());
 		});
 		Mockito.verify(repository, Mockito.times(1)).findById(Mockito.anyLong());
@@ -162,7 +162,7 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	@Override
 	public void getByPrefix() {
 		Mockito.when(repository.findByPrefix((Mockito.anyString()))).thenReturn(new ArrayList<PlayerModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PlayerModel> players = service.getByPrefix(Mockito.anyString());
 			Assertions.assertNull(players);
 		});
@@ -173,7 +173,7 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	@Override
 	public void getByNameColor() {
 		Mockito.when(repository.findByNameColor((Mockito.anyString()))).thenReturn(new ArrayList<PlayerModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PlayerModel> players = service.getByNameColor(Mockito.anyString());
 			Assertions.assertNull(players);
 		});
@@ -184,7 +184,7 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	@Override
 	public void getByNameFormat() {
 		Mockito.when(repository.findByNameFormat((Mockito.anyString()))).thenReturn(new ArrayList<PlayerModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PlayerModel> players = service.getByNameFormat(Mockito.anyString());
 			Assertions.assertNull(players);
 		});
@@ -195,7 +195,7 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	@Override
 	public void getByPrefixColor() {
 		Mockito.when(repository.findByPrefixColor((Mockito.anyString()))).thenReturn(new ArrayList<PlayerModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PlayerModel> players = service.getByPrefixColor(Mockito.anyString());
 			Assertions.assertNull(players);
 		});
@@ -206,40 +206,18 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	@Override
 	public void getByPrefixFormat() {
 		Mockito.when(repository.findByPrefixFormat((Mockito.anyString()))).thenReturn(new ArrayList<PlayerModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PlayerModel> players = service.getByPrefixFormat(Mockito.anyString());
 			Assertions.assertNull(players);
 		});
 		Mockito.verify(repository, Mockito.times(1)).findByPrefixFormat(Mockito.anyString());
-	}
-	
-	@Test
-	@Override
-	public void getByFirstLogin() {
-		Mockito.when(repository.findByFirstLogin((Mockito.any()))).thenReturn(new ArrayList<PlayerModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-			List<PlayerModel> players = service.getByFirstLogin(Mockito.any());
-			Assertions.assertNull(players);
-		});
-		Mockito.verify(repository, Mockito.times(1)).findByFirstLogin(Mockito.any());
-	}
-
-	@Test
-	@Override
-	public void getByLastLogin() {
-		Mockito.when(repository.findByLastLogin((Mockito.any()))).thenReturn(new ArrayList<PlayerModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-			List<PlayerModel> players = service.getByLastLogin(Mockito.any());
-			Assertions.assertNull(players);
-		});
-		Mockito.verify(repository, Mockito.times(1)).findByLastLogin(Mockito.any());
 	}
 
 	@Test
 	@Override
 	public void getByTimePlayed() {
 		Mockito.when(repository.findByTimePlayed((Mockito.anyLong()))).thenReturn(new ArrayList<PlayerModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<PlayerModel> players = service.getByTimePlayed(Mockito.anyLong());
 			Assertions.assertNull(players);
 		});

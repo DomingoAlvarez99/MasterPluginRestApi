@@ -10,6 +10,5 @@ public interface WarpService extends CommonService<WarpModel> {
 	List<WarpModel> getByCoordinateX(long coordinateX);
 	List<WarpModel> getByCoordinateY(long coordinateY);
 	List<WarpModel> getByCoordinateZ(long coordinateZ);
-	List<WarpModel> getByPlayerId(long playerId);
 	
 }

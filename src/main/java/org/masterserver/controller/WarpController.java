@@ -47,7 +47,7 @@ public class WarpController {
 	}
 	
 	@GetMapping("/warps/getByName/{name}")
-	public ResponseEntity<List<WarpModel>> getByName(@PathVariable("playerId") String name) {
+	public ResponseEntity<List<WarpModel>> getByName(@PathVariable("name") String name) {
 		return new ResponseEntity<>(service.getByName(name), HttpStatus.OK);
 	}
 	
@@ -58,17 +58,12 @@ public class WarpController {
 	
 	@GetMapping("/warps/getByCoordinateY/{coordinateY}")
 	public ResponseEntity<List<WarpModel>> getByCoordinateY(@PathVariable("coordinateY") long coordinateY) {
-		return new ResponseEntity<>(service.getByCoordinateX(coordinateY), HttpStatus.OK);
+		return new ResponseEntity<>(service.getByCoordinateY(coordinateY), HttpStatus.OK);
 	}
 	
 	@GetMapping("/warps/getByCoordinateZ/{coordinateZ}")
 	public ResponseEntity<List<WarpModel>> getByCoordinateZ(@PathVariable("coordinateZ") long coordinateZ) {
-		return new ResponseEntity<>(service.getByCoordinateX(coordinateZ), HttpStatus.OK);
-	}
-	
-	@GetMapping("/warps/getByPlayerId/{playerId}")
-	public ResponseEntity<List<WarpModel>> getByPlayerId(@PathVariable("playerId") long playerId) {
-		return new ResponseEntity<>(service.getByPlayerId(playerId), HttpStatus.OK);
+		return new ResponseEntity<>(service.getByCoordinateZ(coordinateZ), HttpStatus.OK);
 	}
 
 }

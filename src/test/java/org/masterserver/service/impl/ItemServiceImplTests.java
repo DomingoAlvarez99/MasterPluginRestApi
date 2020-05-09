@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.masterserver.exception.ResourceNotFoundException;
 import org.masterserver.model.ItemModel;
 import org.masterserver.repository.ItemRepository;
 import org.masterserver.service.ItemServiceTests;
@@ -15,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.web.server.ResponseStatusException;
 
 public class ItemServiceImplTests implements ItemServiceTests {
 
@@ -33,7 +33,7 @@ public class ItemServiceImplTests implements ItemServiceTests {
 	@Override
 	public void getAll() {
 		Mockito.when(repository.findAll()).thenReturn(new ArrayList<ItemModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<ItemModel> items = service.getAll();
 			Assertions.assertNull(items);
 	    });
@@ -73,7 +73,7 @@ public class ItemServiceImplTests implements ItemServiceTests {
 	public void update() {
 		ItemModel item = new ItemModel(1l, 1l, 1l, "granite", "stone");
 		Mockito.when(repository.save(item)).thenReturn(item);
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			service.update(1l, item);
 	    });
 		Mockito.verify(repository, Mockito.times(1)).findById(Mockito.anyLong());
@@ -83,7 +83,7 @@ public class ItemServiceImplTests implements ItemServiceTests {
 	@Test
 	@Override
 	public void delete() {
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			service.delete(Mockito.anyLong());
 	    });
 		Mockito.verify(repository, Mockito.times(1)).findById(Mockito.anyLong());
@@ -107,7 +107,7 @@ public class ItemServiceImplTests implements ItemServiceTests {
 	@Override
 	public void getByDurability() {
 		Mockito.when(repository.findByDurability(Mockito.anyLong())).thenReturn(new ArrayList<ItemModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<ItemModel> items = service.getByDurability(Mockito.anyLong());
 			Assertions.assertNull(items);
 	    });
@@ -131,7 +131,7 @@ public class ItemServiceImplTests implements ItemServiceTests {
 	@Override
 	public void getByType() {
 		Mockito.when(repository.findByType((Mockito.anyString()))).thenReturn(new ArrayList<ItemModel>());
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			List<ItemModel> items = service.getByType(Mockito.anyString());
 			Assertions.assertNull(items);
 	    });

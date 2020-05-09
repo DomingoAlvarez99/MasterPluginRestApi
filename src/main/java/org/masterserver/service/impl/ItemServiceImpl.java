@@ -2,13 +2,13 @@ package org.masterserver.service.impl;
 
 import java.util.List;
 
-import org.masterserver.exception.ResourceExistsException;
-import org.masterserver.exception.ResourceNotFoundException;
 import org.masterserver.model.ItemModel;
 import org.masterserver.repository.ItemRepository;
 import org.masterserver.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -20,35 +20,41 @@ public class ItemServiceImpl implements ItemService {
 	public List<ItemModel> getAll() {
 		List<ItemModel> items = repository.findAll();
 		if (items.isEmpty()) {
-			throw new ResourceNotFoundException("Items not found.");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Items not found.");
 		}
 		return items;
 	}
 
 	@Override
 	public ItemModel getById(long id) {
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id {" + id + "} not found, couldn't get item."));
+		return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+				"Id {" + id + "} not found, couldn't get item."));
 	}
 
 	@Override
 	public ItemModel create(ItemModel item) {
 		if (repository.findByName(item.getName()).isPresent()) {
-			throw new ResourceExistsException("Name {" + item.getName() + "} exists, couldn't create item.");
+			throw new ResponseStatusException(HttpStatus.CONFLICT,
+					"Name {" + item.getName() + "} exists, couldn't create item.");
 		}
 		if (repository.findByUuid(item.getUuid()).isPresent()) {
-			throw new ResourceExistsException("Uuid {" + item.getUuid() + "} exists, couldn't create item.");
+			throw new ResponseStatusException(HttpStatus.CONFLICT,
+					"Uuid {" + item.getUuid() + "} exists, couldn't create item.");
 		}
 		return repository.save(item);
 	}
 
 	@Override
 	public ItemModel update(long id, ItemModel item) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found, couldn't update item."));
+		repository.findById(id).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found, couldn't update item."));
 		if (repository.findByName(item.getName()).isPresent()) {
-			throw new ResourceExistsException("Name {" + item.getName() + "} exists, couldn't create item.");
+			throw new ResponseStatusException(HttpStatus.CONFLICT,
+					"Name {" + item.getName() + "} exists, couldn't create item.");
 		}
 		if (repository.findByUuid(item.getUuid()).isPresent()) {
-			throw new ResourceExistsException("Uuid {" + item.getUuid() + "} exists, couldn't create item.");
+			throw new ResponseStatusException(HttpStatus.CONFLICT,
+					"Uuid {" + item.getUuid() + "} exists, couldn't create item.");
 		}
 		item.setId(id);
 		return repository.save(item);
@@ -56,37 +62,42 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public boolean delete(long id) {
-		repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id {" + id + "} not found, couldn't delete item."));
+		repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+				"Id {" + id + "} not found, couldn't delete item."));
 		repository.deleteById(id);
 		return true;
 	}
 
 	@Override
 	public ItemModel getByUuid(long uuid) {
-		return repository.findByUuid(uuid).orElseThrow(() -> new ResourceNotFoundException("Uuid {" + uuid + "} not found, couldn't get item."));
+		return repository.findByUuid(uuid).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+				"Uuid {" + uuid + "} not found, couldn't get item."));
 	}
 
 	@Override
 	public List<ItemModel> getByDurability(long durability) {
 		List<ItemModel> items = repository.findByDurability(durability);
 		if (items.isEmpty()) {
-			throw new ResourceNotFoundException("Durability {" + durability + "} not found, couldn't get items.");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+					"Durability {" + durability + "} not found, couldn't get items.");
 		}
 		return items;
 	}
 
 	@Override
 	public ItemModel getByName(String name) {
-		return repository.findByName(name).orElseThrow(() -> new ResourceNotFoundException("Name {" + name + "} not found, couldn't get item."));
+		return repository.findByName(name).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+				"Name {" + name + "} not found, couldn't get item."));
 	}
 
 	@Override
 	public List<ItemModel> getByType(String type) {
 		List<ItemModel> items = repository.findByType(type);
 		if (items.isEmpty()) {
-			throw new ResourceNotFoundException("Type {" + type + "} not found, couldn't get items.");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+					"Type {" + type + "} not found, couldn't get items.");
 		}
 		return items;
 	}
-	
+
 }

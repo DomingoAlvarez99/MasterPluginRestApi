@@ -32,29 +32,24 @@ public class PunishmentModel {
 	@Column(name = "date")
 	private Calendar date;
 	
-	@Column(name = "player_id")
-	private long playerId;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="player_id", insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="player_id")
 	@JsonBackReference
 	private PlayerModel player;
 
-	public PunishmentModel(long id, String description, String type, Calendar date, long playerId, PlayerModel player) {
+	public PunishmentModel(long id, String description, String type, Calendar date, PlayerModel player) {
 		this.id = id;
 		this.description = description;
 		this.type = type;
 		this.date = date;
-		this.playerId = playerId;
 		this.player = player;
 	}
 	
-	public PunishmentModel(long id, String description, String type, Calendar date, long playerId) {
+	public PunishmentModel(long id, String description, String type, Calendar date) {
 		this.id = id;
 		this.description = description;
 		this.type = type;
 		this.date = date;
-		this.playerId = playerId;
 	}
 
 	public PunishmentModel(long id) {
@@ -95,14 +90,6 @@ public class PunishmentModel {
 
 	public void setDate(Calendar date) {
 		this.date = date;
-	}
-
-	public long getPlayerId() {
-		return playerId;
-	}
-
-	public void setPlayerId(long playerId) {
-		this.playerId = playerId;
 	}
 
 	public PlayerModel getPlayer() {

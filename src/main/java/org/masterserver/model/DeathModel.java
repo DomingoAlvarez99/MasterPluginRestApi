@@ -15,65 +15,50 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name="\"death\"")
+@Table(name = "\"death\"")
 public class DeathModel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
-	
+
 	@Column(name = "date")
 	private Calendar date;
-	
+
 	@Column(name = "cause", length = 100)
 	private String cause;
-	
-	@Column(name = "mobId")
-	private long mobId;
-	
-	@Column(name = "assasin_id")
-	private long assasinId;
-	
-	@Column(name = "murdered_id")
-	private long murderedId;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="player_id", insertable = false, updatable = false)
-	@JsonBackReference
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "assasin_id")
+	@JsonBackReference("assasin")
 	private PlayerModel assasin;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="player_id", insertable = false, updatable = false)
-	@JsonBackReference
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "murdered_id")
+	@JsonBackReference("murdered")
 	private PlayerModel murdered;
 
-	public DeathModel(long id, Calendar date, String cause, long mobId, long assasinId, long murderedId,
-			PlayerModel assasin, PlayerModel murdered) {
+	public DeathModel(long id, Calendar date, String cause, PlayerModel assasin, PlayerModel murdered) {
 		this.id = id;
 		this.date = date;
 		this.cause = cause;
-		this.mobId = mobId;
-		this.assasinId = assasinId;
-		this.murderedId = murderedId;
 		this.assasin = assasin;
 		this.murdered = murdered;
 	}
-	
-	public DeathModel(long id, Calendar date, String cause, long mobId, long assasinId, long murderedId) {
+
+	public DeathModel(long id, Calendar date, String cause) {
 		this.id = id;
 		this.date = date;
 		this.cause = cause;
-		this.mobId = mobId;
-		this.assasinId = assasinId;
 	}
 
 	public DeathModel(long id) {
 		this.id = id;
 	}
-	
+
 	public DeathModel() {
-		
+
 	}
 
 	public long getId() {
@@ -98,30 +83,6 @@ public class DeathModel {
 
 	public void setCause(String cause) {
 		this.cause = cause;
-	}
-
-	public long getMobId() {
-		return mobId;
-	}
-
-	public void setMobId(long mobId) {
-		this.mobId = mobId;
-	}
-
-	public long getAssasinId() {
-		return assasinId;
-	}
-
-	public void setAssasinId(long assasinId) {
-		this.assasinId = assasinId;
-	}
-
-	public long getMurderedId() {
-		return murderedId;
-	}
-
-	public void setMurderedId(long murderedId) {
-		this.murderedId = murderedId;
 	}
 
 	public PlayerModel getAssasin() {

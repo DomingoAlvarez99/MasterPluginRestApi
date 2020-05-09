@@ -6,6 +6,5 @@ public interface WarpServiceTests extends CommonServiceTests {
 	void getByCoordinateX();
 	void getByCoordinateY();
 	void getByCoordinateZ();
-	void getByPlayerId();
 
 }

@@ -61,10 +61,5 @@ public class PunishmentController {
 	public ResponseEntity<List<PunishmentModel>> getByType(@PathVariable("type") String type) {
 		return new ResponseEntity<>(service.getByType(type), HttpStatus.OK);
 	}
-	
-	@GetMapping("/punishments/getByPlayerId/{playerId}")
-	public ResponseEntity<List<PunishmentModel>> getByPlayerId(@PathVariable("playerId") long playerId) {
-		return new ResponseEntity<>(service.getByPlayerId(playerId), HttpStatus.OK);
-	}
-	
+
 }

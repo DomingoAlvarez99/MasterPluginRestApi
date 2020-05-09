@@ -34,32 +34,27 @@ public class WarpModel {
 	@Column(name = "coordinate_z")
 	private long coordinateZ;
 
-	@Column(name = "player_id")
-	private long playerId;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "player_id", insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "player_id")
 	@JsonBackReference
 	private PlayerModel player;
 
-	public WarpModel(long id, String name, long coordinateX, long coordinateY, long coordinateZ, long playerId,
+	public WarpModel(long id, String name, long coordinateX, long coordinateY, long coordinateZ,
 			PlayerModel player) {
 		this.id = id;
 		this.name = name;
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.coordinateZ = coordinateZ;
-		this.playerId = playerId;
 		this.player = player;
 	}
 
-	public WarpModel(long id, String name, long coordinateX, long coordinateY, long coordinateZ, long playerId) {
+	public WarpModel(long id, String name, long coordinateX, long coordinateY, long coordinateZ) {
 		this.id = id;
 		this.name = name;
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.coordinateZ = coordinateZ;
-		this.playerId = playerId;
 	}
 
 	public WarpModel(long id) {
@@ -108,14 +103,6 @@ public class WarpModel {
 
 	public void setCoordinateZ(long coordinateZ) {
 		this.coordinateZ = coordinateZ;
-	}
-
-	public long getPlayerId() {
-		return playerId;
-	}
-
-	public void setPlayerId(long playerId) {
-		this.playerId = playerId;
 	}
 
 	public PlayerModel getPlayer() {

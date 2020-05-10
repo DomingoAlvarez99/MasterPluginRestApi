@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -69,11 +71,15 @@ public class PlayerModel {
 
 	@OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
 	private Set<WarpModel> warps = new HashSet<>();
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="rank_id")
+	private RankModel rank;
 
 	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
 			String prefixColor, String prefixFormat, Calendar firstLogin, Calendar lastLogin, long timePlayed,
 			String ip, Set<DeathModel> assasins, Set<DeathModel> murdereds, Set<CommandModel> commands,
-			Set<PunishmentModel> punishments, Set<WarpModel> warps) {
+			Set<PunishmentModel> punishments, Set<WarpModel> warps, RankModel rank) {
 		this.id = id;
 		this.uuid = uuid;
 		this.name = name;
@@ -91,6 +97,7 @@ public class PlayerModel {
 		this.commands = commands;
 		this.punishments = punishments;
 		this.warps = warps;
+		this.rank = rank;
 	}
 
 	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
@@ -252,6 +259,14 @@ public class PlayerModel {
 
 	public void setWarps(Set<WarpModel> warps) {
 		this.warps = warps;
+	}
+
+	public RankModel getRank() {
+		return rank;
+	}
+
+	public void setRank(RankModel rank) {
+		this.rank = rank;
 	}
 
 }

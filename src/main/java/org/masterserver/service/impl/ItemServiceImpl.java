@@ -48,13 +48,15 @@ public class ItemServiceImpl implements ItemService {
 	public ItemModel update(long id, ItemModel item) {
 		repository.findById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id not found, couldn't update item."));
-		if (repository.findByName(item.getName()).isPresent()) {
+		if (repository.findByName(item.getName()).isPresent()
+				&& repository.findByName(item.getName()).get().getId() != id) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT,
-					"Name {" + item.getName() + "} exists, couldn't create item.");
+					"Name {" + item.getName() + "} exists, couldn't update item.");
 		}
-		if (repository.findByUuid(item.getUuid()).isPresent()) {
+		if (repository.findByUuid(item.getUuid()).isPresent()
+				&& repository.findByUuid(item.getUuid()).get().getId() != id) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT,
-					"Uuid {" + item.getUuid() + "} exists, couldn't create item.");
+					"Uuid {" + item.getUuid() + "} exists, couldn't update item.");
 		}
 		item.setId(id);
 		return repository.save(item);

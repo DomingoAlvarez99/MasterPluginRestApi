@@ -57,7 +57,7 @@ public class PunishmentServiceImpl implements PunishmentService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Id {" + id + "} not found, couldn't update punishment."));
 		punishment.setId(id);
-		old.setDate(old.getDate());
+		punishment.setDate(old.getDate());
 		if (punishment.getPlayer() != null) {
 			playerRepository.findById(punishment.getPlayer().getId()).orElseThrow(() -> new ResponseStatusException(
 					HttpStatus.NOT_FOUND,

@@ -50,13 +50,15 @@ public class PlayerServiceImpl implements PlayerService {
 	public PlayerModel update(long id, PlayerModel player) {
 		repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 				"Id {" + id + "} not found, couldn't update player."));
-		if (repository.findByName(player.getName()).isPresent()) {
+		if (repository.findByName(player.getName()).isPresent()
+				&& repository.findByName(player.getName()).get().getId() != id) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT,
-					"Name {" + player.getName() + "} not exists, couldn't update player.");
+					"Name {" + player.getName() + "} exists, couldn't update player.");
 		}
-		if (repository.findByName(player.getUuid()).isPresent()) {
+		if (repository.findByUuid(player.getUuid()).isPresent()
+				&& repository.findByUuid(player.getUuid()).get().getId() != id) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT,
-					"Uuid {" + player.getUuid() + "} not exists, couldn't update player.");
+					"Uuid {" + player.getUuid() + "} exists, couldn't update player.");
 		}
 		player.setId(id);
 		return repository.save(player);

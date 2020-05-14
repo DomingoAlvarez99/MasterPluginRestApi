@@ -37,10 +37,6 @@ public class ItemServiceImpl implements ItemService {
 			throw new ResponseStatusException(HttpStatus.CONFLICT,
 					"Name {" + item.getName() + "} exists, couldn't create item.");
 		}
-		if (repository.findByUuid(item.getUuid()).isPresent()) {
-			throw new ResponseStatusException(HttpStatus.CONFLICT,
-					"Uuid {" + item.getUuid() + "} exists, couldn't create item.");
-		}
 		return repository.save(item);
 	}
 
@@ -52,11 +48,6 @@ public class ItemServiceImpl implements ItemService {
 				&& repository.findByName(item.getName()).get().getId() != id) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT,
 					"Name {" + item.getName() + "} exists, couldn't update item.");
-		}
-		if (repository.findByUuid(item.getUuid()).isPresent()
-				&& repository.findByUuid(item.getUuid()).get().getId() != id) {
-			throw new ResponseStatusException(HttpStatus.CONFLICT,
-					"Uuid {" + item.getUuid() + "} exists, couldn't update item.");
 		}
 		item.setId(id);
 		return repository.save(item);

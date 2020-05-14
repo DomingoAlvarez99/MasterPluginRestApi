@@ -33,16 +33,16 @@ public class PlayerModel {
 	@Column(name = "prefix", length = 50)
 	private String prefix;
 
-	@Column(name = "name_color", length = 1)
+	@Column(name = "name_color", length = 2)
 	private String nameColor;
 
-	@Column(name = "name_format", length = 1)
+	@Column(name = "name_format", length = 2)
 	private String nameFormat;
 
-	@Column(name = "prefix_color", length = 1)
+	@Column(name = "prefix_color", length = 2)
 	private String prefixColor;
 
-	@Column(name = "prefix_format", length = 1)
+	@Column(name = "prefix_format", length = 2)
 	private String prefixFormat;
 
 	@Column(name = "first_login")

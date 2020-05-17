@@ -6,7 +6,7 @@ import org.masterserver.model.CommandModel;
 import org.masterserver.repository.CommandRepository;
 import org.masterserver.repository.PlayerRepository;
 import org.masterserver.service.CommandService;
-import org.masterserver.util.Date;
+import org.masterserver.util.CustomDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class CommandServiceImpl implements CommandService {
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 							"PlayerId {" + command.getPlayer().getId() + "} not found, couldn't create command."));
 		}
-		command.setDate(Date.getCurrentDate());
+		command.setDate(CustomDate.getCurrentDate());
 		return repository.save(command);
 	}
 

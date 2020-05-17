@@ -1,6 +1,7 @@
 package org.masterserver.model;
 
-import java.util.Calendar;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,21 +28,21 @@ public class CommandModel {
 	private String command;
 	
 	@Column(name = "date")
-	private Calendar date;
+	private LocalDateTime date;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="player_id")
 	@JsonBackReference
 	private PlayerModel player;
 
-	public CommandModel(long id, String command, Calendar date, PlayerModel player) {
+	public CommandModel(long id, String command, LocalDateTime date, PlayerModel player) {
 		this.id = id;
 		this.command = command;
 		this.date = date;
 		this.player = player;
 	}
 	
-	public CommandModel(long id, String command, Calendar date) {
+	public CommandModel(long id, String command, LocalDateTime date) {
 		this.id = id;
 		this.command = command;
 		this.date = date;
@@ -71,11 +72,11 @@ public class CommandModel {
 		this.command = command;
 	}
 
-	public Calendar getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 

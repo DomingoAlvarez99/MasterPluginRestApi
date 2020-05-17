@@ -1,9 +1,7 @@
 package org.masterserver.service.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.masterserver.model.CommandModel;
 import org.masterserver.repository.CommandRepository;
 import org.masterserver.service.CommandServiceTests;
+import org.masterserver.util.CustomDate;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -45,7 +44,7 @@ public class CommandServiceImplTests implements CommandServiceTests {
 	@Test
 	@Override
 	public void getById() {
-		CommandModel command = new CommandModel(1l, "seen", Calendar.getInstance(Locale.GERMANY));
+		CommandModel command = new CommandModel(1l, "seen", CustomDate.getCurrentDate());
 		Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(Optional.of(command));
 		CommandModel result = service.getById(Mockito.anyLong());
 		Assertions.assertEquals(1l, result.getId());
@@ -57,7 +56,7 @@ public class CommandServiceImplTests implements CommandServiceTests {
 	@Test
 	@Override
 	public void create() {
-		CommandModel command = new CommandModel(1l, "seen", Calendar.getInstance(Locale.GERMANY));
+		CommandModel command = new CommandModel(1l, "seen", CustomDate.getCurrentDate());
 		Mockito.when(repository.save(command)).thenReturn(command);
 		CommandModel result = service.create(command);
 		Assertions.assertEquals(1l, result.getId());
@@ -69,7 +68,7 @@ public class CommandServiceImplTests implements CommandServiceTests {
 	@Test
 	@Override
 	public void update() {
-		CommandModel command = new CommandModel(1l, "seen", Calendar.getInstance(Locale.GERMANY));
+		CommandModel command = new CommandModel(1l, "seen", CustomDate.getCurrentDate());
 		Mockito.when(repository.save(command)).thenReturn(command);
 		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			service.update(Mockito.anyLong(), command);

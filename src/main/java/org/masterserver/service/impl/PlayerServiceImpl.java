@@ -5,7 +5,6 @@ import java.util.List;
 import org.masterserver.model.PlayerModel;
 import org.masterserver.repository.PlayerRepository;
 import org.masterserver.service.PlayerService;
-import org.masterserver.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -42,13 +41,12 @@ public class PlayerServiceImpl implements PlayerService {
 			throw new ResponseStatusException(HttpStatus.CONFLICT,
 					"Uuid {" + player.getUuid() + "} exists, couldn't create player.");
 		}
-		player.setFirstLogin(Date.getCurrentDate());
 		return repository.save(player);
 	}
 
 	@Override
 	public PlayerModel update(long id, PlayerModel player) {
-		repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+		PlayerModel old = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 				"Id {" + id + "} not found, couldn't update player."));
 		if (repository.findByName(player.getName()).isPresent()
 				&& repository.findByName(player.getName()).get().getId() != id) {
@@ -60,6 +58,7 @@ public class PlayerServiceImpl implements PlayerService {
 			throw new ResponseStatusException(HttpStatus.CONFLICT,
 					"Uuid {" + player.getUuid() + "} exists, couldn't update player.");
 		}
+		player.setFirstLogin(old.getFirstLogin());
 		player.setId(id);
 		return repository.save(player);
 	}

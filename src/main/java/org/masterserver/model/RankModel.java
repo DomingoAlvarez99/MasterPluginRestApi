@@ -39,7 +39,7 @@ public class RankModel {
 	  name = "\"rank_permission\"", 
 	  joinColumns = @JoinColumn(name = "rank_id"), 
 	  inverseJoinColumns = @JoinColumn(name = "permission_id"))
-	private Set<RankModel> permissions = new HashSet<>();
+	private Set<PermissionModel> permissions = new HashSet<>();
 	
 	public RankModel() {
 
@@ -73,11 +73,11 @@ public class RankModel {
 		this.players = players;
 	}
 
-	public Set<RankModel> getPermissions() {
+	public Set<PermissionModel> getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(Set<RankModel> permissions) {
+	public void setPermissions(Set<PermissionModel> permissions) {
 		this.permissions = permissions;
 	}
 

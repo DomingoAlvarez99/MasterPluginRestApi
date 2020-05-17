@@ -1,6 +1,6 @@
 package org.masterserver.model;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,14 +30,14 @@ public class PunishmentModel {
 	private String type;
 	
 	@Column(name = "date")
-	private Calendar date;
+	private LocalDateTime date;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="player_id")
 	@JsonBackReference
 	private PlayerModel player;
 
-	public PunishmentModel(long id, String description, String type, Calendar date, PlayerModel player) {
+	public PunishmentModel(long id, String description, String type, LocalDateTime date, PlayerModel player) {
 		this.id = id;
 		this.description = description;
 		this.type = type;
@@ -45,7 +45,7 @@ public class PunishmentModel {
 		this.player = player;
 	}
 	
-	public PunishmentModel(long id, String description, String type, Calendar date) {
+	public PunishmentModel(long id, String description, String type, LocalDateTime date) {
 		this.id = id;
 		this.description = description;
 		this.type = type;
@@ -84,11 +84,11 @@ public class PunishmentModel {
 		this.type = type;
 	}
 
-	public Calendar getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 

@@ -1,9 +1,7 @@
 package org.masterserver.service.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.masterserver.model.DeathModel;
 import org.masterserver.repository.DeathRepository;
 import org.masterserver.service.DeathServiceTests;
+import org.masterserver.util.CustomDate;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -45,7 +44,7 @@ public class DeathServiceImplTests implements DeathServiceTests {
 	@Test
 	@Override
 	public void getById() {
-		DeathModel death = new DeathModel(1l, Calendar.getInstance(Locale.GERMANY), "fire");
+		DeathModel death = new DeathModel(1l, CustomDate.getCurrentDate(), "fire");
 		Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(Optional.of(death));
 		DeathModel result = service.getById(Mockito.anyLong());
 		Assertions.assertEquals(1l, result.getId());
@@ -57,7 +56,7 @@ public class DeathServiceImplTests implements DeathServiceTests {
 	@Test
 	@Override
 	public void create() {
-		DeathModel death = new DeathModel(1l, Calendar.getInstance(Locale.GERMANY), "fire");
+		DeathModel death = new DeathModel(1l, CustomDate.getCurrentDate(), "fire");
 		Mockito.when(repository.save(death)).thenReturn(death);
 		Assertions.assertThrows(NullPointerException.class, () -> {
 			DeathModel result = service.create(death);
@@ -69,7 +68,7 @@ public class DeathServiceImplTests implements DeathServiceTests {
 	@Test
 	@Override
 	public void update() {
-		DeathModel death = new DeathModel(1l, Calendar.getInstance(Locale.GERMANY), "fire");
+		DeathModel death = new DeathModel(1l, CustomDate.getCurrentDate(), "fire");
 		Mockito.when(repository.save(death)).thenReturn(death);
 		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			service.update(1l, death);

@@ -1,6 +1,6 @@
 package org.masterserver.model;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +24,7 @@ public class DeathModel {
 	private long id;
 
 	@Column(name = "date")
-	private Calendar date;
+	private LocalDateTime date;
 
 	@Column(name = "cause", length = 100)
 	private String cause;
@@ -39,7 +39,7 @@ public class DeathModel {
 	@JsonBackReference("murdered")
 	private PlayerModel murdered;
 
-	public DeathModel(long id, Calendar date, String cause, PlayerModel assasin, PlayerModel murdered) {
+	public DeathModel(long id, LocalDateTime date, String cause, PlayerModel assasin, PlayerModel murdered) {
 		this.id = id;
 		this.date = date;
 		this.cause = cause;
@@ -47,7 +47,7 @@ public class DeathModel {
 		this.murdered = murdered;
 	}
 
-	public DeathModel(long id, Calendar date, String cause) {
+	public DeathModel(long id, LocalDateTime date, String cause) {
 		this.id = id;
 		this.date = date;
 		this.cause = cause;
@@ -69,11 +69,11 @@ public class DeathModel {
 		this.id = id;
 	}
 
-	public Calendar getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 

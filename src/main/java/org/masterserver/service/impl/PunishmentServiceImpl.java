@@ -7,7 +7,7 @@ import org.masterserver.model.PunishmentModel;
 import org.masterserver.repository.PlayerRepository;
 import org.masterserver.repository.PunishmentRepository;
 import org.masterserver.service.PunishmentService;
-import org.masterserver.util.Date;
+import org.masterserver.util.CustomDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -47,7 +47,7 @@ public class PunishmentServiceImpl implements PunishmentService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
 					"PlayerId {" + punishment.getPlayer().getId() + "} not found, couldn't create punishment.");
 		}
-		punishment.setDate(Date.getCurrentDate());
+		punishment.setDate(CustomDate.getCurrentDate());
 		return repository.save(punishment);
 	}
 

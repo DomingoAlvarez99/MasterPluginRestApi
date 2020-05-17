@@ -6,7 +6,7 @@ import org.masterserver.model.DeathModel;
 import org.masterserver.repository.DeathRepository;
 import org.masterserver.repository.PlayerRepository;
 import org.masterserver.service.DeathService;
-import org.masterserver.util.Date;
+import org.masterserver.util.CustomDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,7 @@ public class DeathServiceImpl implements DeathService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
 					"MurderedId {" + death.getMurdered().getId() + "} not found, couldn't create death.");
 		}
-		death.setDate(Date.getCurrentDate());
+		death.setDate(CustomDate.getCurrentDate());
 		return repository.save(death);
 	}
 

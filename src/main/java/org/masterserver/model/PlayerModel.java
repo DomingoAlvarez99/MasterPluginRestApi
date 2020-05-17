@@ -1,6 +1,6 @@
 package org.masterserver.model;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "\"player\"")
@@ -33,23 +35,25 @@ public class PlayerModel {
 	@Column(name = "prefix", length = 50)
 	private String prefix;
 
-	@Column(name = "name_color", length = 2)
+	@Column(name = "name_color", length = 20)
 	private String nameColor;
 
 	@Column(name = "name_format", length = 2)
 	private String nameFormat;
 
-	@Column(name = "prefix_color", length = 2)
+	@Column(name = "prefix_color", length = 20)
 	private String prefixColor;
 
 	@Column(name = "prefix_format", length = 2)
 	private String prefixFormat;
-
+	
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Europe/Madrid")
 	@Column(name = "first_login")
-	private Calendar firstLogin;
+	private LocalDateTime firstLogin;
 
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Europe/Madrid")
 	@Column(name = "last_login")
-	private Calendar lastLogin;
+	private LocalDateTime lastLogin;
 
 	@Column(name = "time_played")
 	private long timePlayed;
@@ -77,7 +81,7 @@ public class PlayerModel {
 	private RankModel rank;
 
 	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
-			String prefixColor, String prefixFormat, Calendar firstLogin, Calendar lastLogin, long timePlayed,
+			String prefixColor, String prefixFormat, LocalDateTime firstLogin, LocalDateTime lastLogin, long timePlayed,
 			String ip, Set<DeathModel> assasins, Set<DeathModel> murdereds, Set<CommandModel> commands,
 			Set<PunishmentModel> punishments, Set<WarpModel> warps, RankModel rank) {
 		this.id = id;
@@ -101,7 +105,7 @@ public class PlayerModel {
 	}
 
 	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
-			String prefixColor, String prefixFormat, Calendar firstLogin, Calendar lastLogin, long timePlayed,
+			String prefixColor, String prefixFormat, LocalDateTime firstLogin, LocalDateTime lastLogin, long timePlayed,
 			String ip) {
 		this.id = id;
 		this.uuid = uuid;
@@ -189,19 +193,19 @@ public class PlayerModel {
 		this.prefixFormat = prefixFormat;
 	}
 
-	public Calendar getFirstLogin() {
+	public LocalDateTime getFirstLogin() {
 		return firstLogin;
 	}
 
-	public void setFirstLogin(Calendar firstLogin) {
+	public void setFirstLogin(LocalDateTime firstLogin) {
 		this.firstLogin = firstLogin;
 	}
 
-	public Calendar getLastLogin() {
+	public LocalDateTime getLastLogin() {
 		return lastLogin;
 	}
 
-	public void setLastLogin(Calendar lastLogin) {
+	public void setLastLogin(LocalDateTime lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 

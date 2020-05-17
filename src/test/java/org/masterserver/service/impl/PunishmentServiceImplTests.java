@@ -1,9 +1,7 @@
 package org.masterserver.service.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.masterserver.model.PunishmentModel;
 import org.masterserver.repository.PunishmentRepository;
 import org.masterserver.service.PunishmentServiceTests;
+import org.masterserver.util.CustomDate;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -45,7 +44,7 @@ public class PunishmentServiceImplTests implements PunishmentServiceTests {
 	@Test
 	@Override
 	public void getById() {
-		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", Calendar.getInstance(Locale.GERMANY));
+		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", CustomDate.getCurrentDate());
 		Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(Optional.of(punishment));
 		PunishmentModel result = service.getById(Mockito.anyLong());
 		Assertions.assertEquals(1l, result.getId());
@@ -58,7 +57,7 @@ public class PunishmentServiceImplTests implements PunishmentServiceTests {
 	@Test
 	@Override
 	public void create() {
-		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", Calendar.getInstance(Locale.GERMANY));
+		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", CustomDate.getCurrentDate());
 		Mockito.when(repository.save(punishment)).thenReturn(punishment);
 		Assertions.assertThrows(NullPointerException.class, () -> {
 			PunishmentModel result = service.create(punishment);
@@ -70,7 +69,7 @@ public class PunishmentServiceImplTests implements PunishmentServiceTests {
 	@Test
 	@Override
 	public void update() {
-		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", Calendar.getInstance(Locale.GERMANY));
+		PunishmentModel punishment = new PunishmentModel(1l, "desc", "ban", CustomDate.getCurrentDate());
 		Mockito.when(repository.save(punishment)).thenReturn(punishment);
 		Assertions.assertThrows(ResponseStatusException.class, () -> {
 			service.update(1l, punishment);

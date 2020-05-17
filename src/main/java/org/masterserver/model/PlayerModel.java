@@ -76,14 +76,26 @@ public class PlayerModel {
 	@OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
 	private Set<WarpModel> warps = new HashSet<>();
 	
+	@OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+	private Set<AchievementModel> achievements = new HashSet<>();
+	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="rank_id")
 	private RankModel rank;
 
+	public PlayerModel() {
+
+	}
+	
+	public PlayerModel(long id) {
+		this.id = id;
+	}
+	
 	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
 			String prefixColor, String prefixFormat, LocalDateTime firstLogin, LocalDateTime lastLogin, long timePlayed,
 			String ip, Set<DeathModel> assasins, Set<DeathModel> murdereds, Set<CommandModel> commands,
-			Set<PunishmentModel> punishments, Set<WarpModel> warps, RankModel rank) {
+			Set<PunishmentModel> punishments, Set<WarpModel> warps, Set<AchievementModel> achievements,
+			RankModel rank) {
 		this.id = id;
 		this.uuid = uuid;
 		this.name = name;
@@ -101,6 +113,7 @@ public class PlayerModel {
 		this.commands = commands;
 		this.punishments = punishments;
 		this.warps = warps;
+		this.achievements = achievements;
 		this.rank = rank;
 	}
 
@@ -119,14 +132,6 @@ public class PlayerModel {
 		this.lastLogin = lastLogin;
 		this.timePlayed = timePlayed;
 		this.ip = ip;
-	}
-
-	public PlayerModel(long id) {
-		this.id = id;
-	}
-
-	public PlayerModel() {
-
 	}
 
 	public long getId() {
@@ -271,6 +276,14 @@ public class PlayerModel {
 
 	public void setRank(RankModel rank) {
 		this.rank = rank;
+	}
+
+	public Set<AchievementModel> getAchievements() {
+		return achievements;
+	}
+
+	public void setAchievements(Set<AchievementModel> achievements) {
+		this.achievements = achievements;
 	}
 
 }

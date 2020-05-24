@@ -14,5 +14,6 @@ public interface PlayerService extends CommonService<PlayerModel> {
 	List<PlayerModel> getByPrefixColor(String prefixColor);
 	List<PlayerModel> getByPrefixFormat(String prefixFormat);
 	List<PlayerModel> getByTimePlayed(long timePlayed);
+	List<PlayerModel> getByRankName(String rankName);
 	
 }

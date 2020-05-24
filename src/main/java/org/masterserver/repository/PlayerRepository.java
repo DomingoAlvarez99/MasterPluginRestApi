@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.masterserver.model.PlayerModel;
+import org.masterserver.model.RankModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +22,5 @@ public interface PlayerRepository extends JpaRepository<PlayerModel, Long> {
 	List<PlayerModel> findByFirstLogin(Calendar firstLogin);
 	List<PlayerModel> findByLastLogin(Calendar lastLogin);
 	List<PlayerModel> findByTimePlayed(long timePlayed);
-	
+	List<PlayerModel> findByRank(RankModel rank);
 }

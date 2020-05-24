@@ -86,4 +86,8 @@ public class PlayerController {
 		return new ResponseEntity<>(service.getByTimePlayed(timePlayed), HttpStatus.OK);
 	}
 
+	@GetMapping("/players/getByRankName/{rankName}")
+	public ResponseEntity<List<PlayerModel>> getByRankName(@PathVariable("rankName") String rankName) {
+		return new ResponseEntity<>(service.getByRankName(rankName), HttpStatus.OK);
+	}
 }

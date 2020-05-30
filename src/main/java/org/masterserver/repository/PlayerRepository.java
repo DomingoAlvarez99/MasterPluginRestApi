@@ -23,4 +23,6 @@ public interface PlayerRepository extends JpaRepository<PlayerModel, Long> {
 	List<PlayerModel> findByLastLogin(Calendar lastLogin);
 	List<PlayerModel> findByTimePlayed(long timePlayed);
 	List<PlayerModel> findByRank(RankModel rank);
+	List<PlayerModel> findByOnline(boolean online);
+	
 }

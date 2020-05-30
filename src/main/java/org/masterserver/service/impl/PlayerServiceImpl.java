@@ -162,4 +162,14 @@ public class PlayerServiceImpl implements PlayerService {
 		return players;
 	}
 
+	@Override
+	public List<PlayerModel> getByOnline(boolean online) {
+		List<PlayerModel> players = playerRepository.findByOnline(online);
+		if (players.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+					"Online {" + online + "} not found, couldn't get players.");
+		}
+		return players;
+	}
+
 }

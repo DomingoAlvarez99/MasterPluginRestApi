@@ -90,4 +90,9 @@ public class PlayerController {
 	public ResponseEntity<List<PlayerModel>> getByRankName(@PathVariable("rankName") String rankName) {
 		return new ResponseEntity<>(service.getByRankName(rankName), HttpStatus.OK);
 	}
+
+	@GetMapping("/players/getByOnline/{online}")
+	public ResponseEntity<List<PlayerModel>> getByOnline(@PathVariable("online") boolean online) {
+		return new ResponseEntity<>(service.getByOnline(online), HttpStatus.OK);
+	}
 }

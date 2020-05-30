@@ -57,6 +57,9 @@ public class PlayerModel {
 
 	@Column(name = "time_played")
 	private long timePlayed;
+	
+	@Column(name = "online")
+	private boolean online;
 
 	@Column(name = "ip", length = 50)
 	private String ip;
@@ -90,10 +93,10 @@ public class PlayerModel {
 	public PlayerModel(long id) {
 		this.id = id;
 	}
-	
+
 	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
 			String prefixColor, String prefixFormat, LocalDateTime firstLogin, LocalDateTime lastLogin, long timePlayed,
-			String ip, Set<DeathModel> assasins, Set<DeathModel> murdereds, Set<CommandModel> commands,
+			boolean online, String ip, Set<DeathModel> assasins, Set<DeathModel> murdereds, Set<CommandModel> commands,
 			Set<PunishmentModel> punishments, Set<WarpModel> warps, Set<AchievementModel> achievements,
 			RankModel rank) {
 		this.id = id;
@@ -107,6 +110,7 @@ public class PlayerModel {
 		this.firstLogin = firstLogin;
 		this.lastLogin = lastLogin;
 		this.timePlayed = timePlayed;
+		this.online = online;
 		this.ip = ip;
 		this.assasins = assasins;
 		this.murdereds = murdereds;
@@ -116,10 +120,10 @@ public class PlayerModel {
 		this.achievements = achievements;
 		this.rank = rank;
 	}
-
+	
 	public PlayerModel(long id, String uuid, String name, String prefix, String nameColor, String nameFormat,
 			String prefixColor, String prefixFormat, LocalDateTime firstLogin, LocalDateTime lastLogin, long timePlayed,
-			String ip) {
+			boolean online, String ip) {
 		this.id = id;
 		this.uuid = uuid;
 		this.name = name;
@@ -131,6 +135,7 @@ public class PlayerModel {
 		this.firstLogin = firstLogin;
 		this.lastLogin = lastLogin;
 		this.timePlayed = timePlayed;
+		this.online = online;
 		this.ip = ip;
 	}
 
@@ -222,6 +227,14 @@ public class PlayerModel {
 		this.timePlayed = timePlayed;
 	}
 
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
+	}
+
 	public String getIp() {
 		return ip;
 	}
@@ -270,14 +283,6 @@ public class PlayerModel {
 		this.warps = warps;
 	}
 
-	public RankModel getRank() {
-		return rank;
-	}
-
-	public void setRank(RankModel rank) {
-		this.rank = rank;
-	}
-
 	public Set<AchievementModel> getAchievements() {
 		return achievements;
 	}
@@ -286,4 +291,11 @@ public class PlayerModel {
 		this.achievements = achievements;
 	}
 
+	public RankModel getRank() {
+		return rank;
+	}
+
+	public void setRank(RankModel rank) {
+		this.rank = rank;
+	}
 }

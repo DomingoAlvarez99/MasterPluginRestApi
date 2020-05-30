@@ -15,5 +15,6 @@ public interface PlayerService extends CommonService<PlayerModel> {
 	List<PlayerModel> getByPrefixFormat(String prefixFormat);
 	List<PlayerModel> getByTimePlayed(long timePlayed);
 	List<PlayerModel> getByRankName(String rankName);
+	List<PlayerModel> getByOnline(boolean online);
 	
 }

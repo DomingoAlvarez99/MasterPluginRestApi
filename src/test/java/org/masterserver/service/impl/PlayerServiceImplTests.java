@@ -45,7 +45,7 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	@Override
 	public void getById() {
 		PlayerModel player = new PlayerModel(1l, "8c898aa3-b0fb-4695-82fc-a816a7a3c3ec", "Federico", "[Dev]", "&3",
-				"&l", "&4", "&l", CustomDate.getCurrentDate(), CustomDate.getCurrentDate(), 1232312l,
+				"&l", "&4", "&l", CustomDate.getCurrentDate(), CustomDate.getCurrentDate(), 1232312l, false,
 				"17.212.1");
 		Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(Optional.of(player));
 		PlayerModel result = service.getById(Mockito.anyLong());
@@ -68,7 +68,7 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	@Override
 	public void create() {
 		PlayerModel player = new PlayerModel(1l, "8c898aa3-b0fb-4695-82fc-a816a7a3c3ec", "Federico", "[Dev]", "&3",
-				"&l", "&4", "&l", CustomDate.getCurrentDate(), CustomDate.getCurrentDate(), 1232312l,
+				"&l", "&4", "&l", CustomDate.getCurrentDate(), CustomDate.getCurrentDate(), 1232312l, false,
 				"17.212.1");
 		Mockito.when(repository.save(player)).thenReturn(player);
 		PlayerModel result = service.create(player);
@@ -91,7 +91,7 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	@Override
 	public void update() {
 		PlayerModel player = new PlayerModel(1l, "8c898aa3-b0fb-4695-82fc-a816a7a3c3ec", "Federico", "[Dev]", "&3",
-				"&l", "&4", "&l", CustomDate.getCurrentDate(), CustomDate.getCurrentDate(), 1232312l,
+				"&l", "&4", "&l", CustomDate.getCurrentDate(), CustomDate.getCurrentDate(), 1232312l, false,
 				"17.212.1");
 		Mockito.when(repository.save(player)).thenReturn(player);
 		Assertions.assertThrows(ResponseStatusException.class, () -> {
@@ -116,8 +116,8 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 	public void getByUuid() {
 		Mockito.when(repository.findByUuid(Mockito.anyString()))
 				.thenReturn(Optional.of(new PlayerModel(1l, "8c898aa3-b0fb-4695-82fc-a816a7a3c3ec", "Federico", "[Dev]",
-						"&3", "&l", "&4", "&l", CustomDate.getCurrentDate(),
-						CustomDate.getCurrentDate(), 1232312l, "17.212.1")));
+						"&3", "&l", "&4", "&l", CustomDate.getCurrentDate(), CustomDate.getCurrentDate(), 1232312l,
+						false, "17.212.1")));
 		PlayerModel result = service.getByUuid(Mockito.anyString());
 		Assertions.assertEquals(1l, result.getId());
 		Assertions.assertEquals("8c898aa3-b0fb-4695-82fc-a816a7a3c3ec", result.getUuid());
@@ -133,14 +133,14 @@ public class PlayerServiceImplTests implements PlayerServiceTests {
 		Assertions.assertEquals("17.212.1", result.getIp());
 		Mockito.verify(repository, Mockito.times(1)).findByUuid(Mockito.anyString());
 	}
-	
+
 	@Test
 	@Override
 	public void getByName() {
 		Mockito.when(repository.findByName(Mockito.anyString()))
 				.thenReturn(Optional.of(new PlayerModel(1l, "8c898aa3-b0fb-4695-82fc-a816a7a3c3ec", "Federico", "[Dev]",
-						"&3", "&l", "&4", "&l", CustomDate.getCurrentDate(),
-						CustomDate.getCurrentDate(), 1232312l, "17.212.1")));
+						"&3", "&l", "&4", "&l", CustomDate.getCurrentDate(), CustomDate.getCurrentDate(), 1232312l,
+						false, "17.212.1")));
 		PlayerModel result = service.getByName(Mockito.anyString());
 		Assertions.assertEquals(1l, result.getId());
 		Assertions.assertEquals("8c898aa3-b0fb-4695-82fc-a816a7a3c3ec", result.getUuid());
